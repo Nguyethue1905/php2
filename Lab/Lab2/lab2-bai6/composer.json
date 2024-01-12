@@ -1,0 +1,9 @@
+{
+    "name": "lab2bai6/autoload",
+    "autoload": {
+        "psr-4": {
+            "Lab2bai6\\Autoload\\": "src/"
+        }
+    },
+    "require": {}
+}
