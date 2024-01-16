@@ -20,7 +20,7 @@ class Database
             die("Connection failed: " . $conn->connect_error());
         }
 
-        echo "Connection successful";
+        echo "Conection successful";
     }
     public function HelloWord()
     {

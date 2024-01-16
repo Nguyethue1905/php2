@@ -1,0 +1,10 @@
+{
+    "name": "hue/abc",
+    "autoload": {
+        "psr-4": {
+            "Hue\\Abc\\": "src/",
+            "annimal\\":"annimal/"
+        }
+    },
+    "require": {}
+}

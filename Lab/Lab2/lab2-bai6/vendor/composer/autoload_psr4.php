@@ -6,5 +6,6 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Lab2bai6\\Autoload\\' => array($baseDir . '/src'),
+    'src\\' => array($baseDir . '/src'),
+    'Core\\' => array($baseDir . '/Core'),
 );

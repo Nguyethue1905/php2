@@ -11,6 +11,10 @@
 
  use App\Controller\BaseControl;
  $home = new BaseControl();
+
+ use Core\Database;
+ $hello = new Database();
+ $hello->HelloWord();
  
 ?>
 
