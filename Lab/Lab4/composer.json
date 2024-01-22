@@ -1,0 +1,14 @@
+{
+    "name": "hue/app",
+    "autoload": {
+        "psr-4": {
+            "App\\": "./App/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Hue"
+        }
+    ],
+    "require": {}
+}
