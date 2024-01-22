@@ -1,8 +1,15 @@
 <?php
 namespace App\Model;
-class  BaseModel{
-    public function __construct(){
-        echo "Đây là file BaseModel";
-    }
+// Abstract
+abstract class  BaseModel{
+    protected $connection;
+    abstract function connect();
+    abstract function Play();
+    abstract function Add();
+    abstract function Change();
+    abstract function Delete();
 }
+
+
+
 ?>

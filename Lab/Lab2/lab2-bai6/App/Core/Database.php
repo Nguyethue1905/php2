@@ -1,6 +1,6 @@
 <?php
 
-namespace Core;
+namespace App\Core;
 
 use mysqli;
 
@@ -24,6 +24,6 @@ class Database
     }
     public function HelloWord()
     {
-        echo "Hello Word";
+        echo "Hello Word <br/>";
     }
 }

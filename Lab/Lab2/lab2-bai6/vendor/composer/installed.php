@@ -3,7 +3,7 @@
         'name' => 'lab2bai6/autoload',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'dc359893e73da927cc96c91cefefa6c14c453afc',
+        'reference' => '9a69bcb33a4f60a5d62eb4a15bf529290559701b',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'lab2bai6/autoload' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'dc359893e73da927cc96c91cefefa6c14c453afc',
+            'reference' => '9a69bcb33a4f60a5d62eb4a15bf529290559701b',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

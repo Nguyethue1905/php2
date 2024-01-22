@@ -11,9 +11,9 @@ class ComposerStaticInitd3584926a539454107edb6dba3786e58
         array (
             'src\\' => 4,
         ),
-        'C' => 
+        'A' => 
         array (
-            'Core\\' => 5,
+            'App\\' => 4,
         ),
     );
 
@@ -22,9 +22,9 @@ class ComposerStaticInitd3584926a539454107edb6dba3786e58
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
-        'Core\\' => 
+        'App\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/Core',
+            0 => __DIR__ . '/../..' . '/App',
         ),
     );
 

@@ -14,10 +14,3 @@ public function getInfo()
 echo "The dog is {$this->name} and the color is {$this->color}.";
 }
 }
-class Kitty extends Dog
-{
-public function message()
-{
-echo "Hello, my name is " . $this->name . ", has " . $this->color . " color";
-}
-}
