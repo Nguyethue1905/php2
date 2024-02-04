@@ -1,0 +1,15 @@
+{
+    "name": "ng/lab5",
+    "autoload": {
+        "psr-4": {
+            "Core\\": "./Core/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Nguyethue1905",
+            "email": "nguyethue1905@gmail.com"
+        }
+    ],
+    "require": {}
+}

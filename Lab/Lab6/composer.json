@@ -1,0 +1,15 @@
+{
+    "name": "lab6/huevtn",
+    "autoload": {
+        "psr-4": {
+            "Lab6\\Huevtn\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Nguyethue1905",
+            "email": "nguyethue1905@gmail.com"
+        }
+    ],
+    "require": {}
+}

@@ -1,18 +1,18 @@
 <?php
 require 'vendor/autoload.php';
 
-use App\Core\Route;
+// use App\Core\Route;
 
-$home = new Route();
+// $home = new Route();
 
-use App\Controller\BaseControl;
+// use App\Controller\BaseControl;
 
-$home = new BaseControl();
+// $home = new BaseControl();
 
-use App\Core\Database;;
+// use App\Core\Database;;
 
-$hello = new Database();
-$hello->HelloWord();
+// $hello = new Database();
+// $hello->HelloWord();
 
 use App\Model\RunModel;
 $basemodel = new RunModel();
@@ -42,8 +42,7 @@ $baseInter->Delete();
 </head>
 
 <body>
-    <h1>Home nè</h1>
-
+    <h5>Form</h5>
     <div class="container">
         <h1>Create an Account</h1>
         <?php

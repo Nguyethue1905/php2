@@ -4,7 +4,8 @@ namespace App\Model;
 class RunModel extends BaseModel{
     public function __construct()
     {
-        echo '<br/> Abstract <br/>';
+        echo '<br/> <b>Lab3</b><br />';
+        echo ' Abstract <br/>';
     }
     public function connect()
     {

@@ -1,7 +1,15 @@
 <?php
 require_once 'vendor/autoload.php';
 
-use App\controllers\HomeController;
+define ("ROOT_URL", "http://localhost:8000/");
 
-$home = new HomeController();
+// use App\Controllers\BaseController;
+use App\Controllers\HomeController;
+// use App\Controllers\ProductController;
+
+use App\Core\Route;
+
+new Route();
+
+
 ?>
