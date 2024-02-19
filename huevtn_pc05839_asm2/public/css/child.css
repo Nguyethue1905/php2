@@ -1,0 +1,104 @@
+//table
+
+.settime input{
+    margin : 5px;
+    width:100%;
+}
+
+.table td{
+        width: 15%;
+        text-align: center;
+        vertical-align: middle;
+    }
+    
+
+.table td input{
+    height:25px;
+    width:25px;
+}
+
+.table .imgname{
+    display: flex;
+  
+}
+
+.table .imgname img{
+    border-radius:50%;
+    padding:5px;
+}
+
+.option-staff{
+    display: flex;
+    
+}
+
+.option-staff select{
+    margin:10px;
+}
+
+.profile-container {
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+}
+
+.account-info, .public-profile {
+    width: 45%;
+}
+
+.account-info h2, .account-info h3, .public-profile h2 {
+    margin-bottom: 10px;
+}
+
+.account-info p, .public-profile p {
+    margin-bottom: 5px;
+}
+
+.public-profile img {
+    width: 100%;
+    height: auto;
+}
+
+.public-profile button {
+    margin-right: 10px;
+}
+
+
+.modal-content {
+    font-family: Arial, sans-serif;
+}
+
+.modal-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.modal-title {
+    color: #495057;
+    font-size: 1.5rem;
+}
+
+.modal-body {
+    color: #212529;
+    line-height: 1.5;
+}
+
+.modal-body img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.modal-footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+}
+
+
+/* CSS cho thẻ input */
+input[name="avatar"] {
+    margin:20px;
+}
+
+
