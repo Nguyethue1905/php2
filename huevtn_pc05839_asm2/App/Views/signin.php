@@ -46,7 +46,14 @@
                             </a>
                             <h3>Sign In</h3>
                         </div>
-                        <form method="post" action="">
+                        <?php 
+                              if(isset($_SESSION['error'])){
+                                echo "<p style='color:red;'>".$_SESSION['error']."</p>";
+                                unset( $_SESSION['error'] );
+                              }
+                            ?>
+                        <form method="post" action="<?=ROOT_URL?>?url=LoginController/submit">
+                           
                             <div class="form-floating mb-3">
                                 <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email">
                                 <label for="floatingInput">Email address</label>

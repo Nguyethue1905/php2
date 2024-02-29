@@ -60,32 +60,35 @@
 
 
     // Worldwide Sales Chart
-    var ctx1 = $("#worldwide-sales").get(0).getContext("2d");
-    var myChart1 = new Chart(ctx1, {
-        type: "bar",
-        data: {
-            labels: ["7/2023", "8/2023", "9/2023", "10/2023", "11/2023", "12/2023", "1/2024"],
-            datasets: [{
-                    label: "Start",
-                    data: [15, 30, 55, 65, 60, 80, 95],
-                    backgroundColor: "rgba(0, 156, 255, .7)"
-                },
-                {
-                    label: "Proressing",
-                    data: [8, 35, 40, 60, 70, 55, 75],
-                    backgroundColor: "rgba(0, 156, 255, .5)"
-                },
-                {
-                    label: "Finished",
-                    data: [12, 25, 45, 55, 65, 70, 60],
-                    backgroundColor: "rgba(0, 156, 255, .3)"
-                }
-            ]
-            },
-        options: {
-            responsive: true
-        }
-    });
+    // var start = 55 ;
+    // var Proressing = 5 ;
+    // var Seccess = 55 ;
+    // var ctx1 = $("#worldwide-sales").get(0).getContext("2d");
+    // var myChart1 = new Chart(ctx1, {
+    //     type: "bar",
+    //     data: {
+    //         labels: ["Status"],
+    //         datasets: [{
+    //                 label: "Start",
+    //                 data: [start],
+    //                 backgroundColor: "rgba(0, 156, 255, .7)"
+    //             },
+    //             {
+    //                 label: "Proressing",
+    //                 data: [Proressing],
+    //                 backgroundColor: "rgba(0, 156, 255, .5)"
+    //             },
+    //             {
+    //                 label: "Seccess",
+    //                 data: [Seccess],
+    //                 backgroundColor: "rgba(0, 156, 255, .3)"
+    //             }
+    //         ]
+    //         },
+    //     options: {
+    //         responsive: true
+    //     }
+    // });
 
 
     // Salse & Revenue Chart
@@ -103,6 +106,12 @@
                 {
                     label: "Staffs",
                     data: [99, 135, 170, 130, 190, 180, 270],
+                    backgroundColor: "rgba(0, 156, 255, .3)",
+                    fill: true
+                },
+                {
+                    label: "Stbjfs",
+                    data: [99, 135, 170, 13, 190, 180, 270],
                     backgroundColor: "rgba(0, 156, 255, .3)",
                     fill: true
                 }

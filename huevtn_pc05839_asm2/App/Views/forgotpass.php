@@ -44,8 +44,14 @@
                             <a href="index.html" class="">
                                 <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>DASHMIN</h3>
                             </a>
-                            <h3>Sign In</h3>
+                            <h3>Forgot Pass</h3>
                         </div>
+                        <?php 
+                              if(isset($_SESSION['error'])){
+                                echo "<p style='color:red;'>".$_SESSION['error']."</p>";
+                                unset( $_SESSION['error'] );
+                              }
+                            ?>
                         <form method="post" action="<?= ROOT_URL ?>?url=ForgotController/pass">
                             <div class="form-floating mb-3">
                                 <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email">

@@ -26,20 +26,21 @@ class BellContronller extends BaseController
     function index()
     {
         // dữ liệu ở đây lấy từ repositories hoặc model
-
-        // $category = new Work();
-        // $data = $category->getAllJob('userID', 'nameUser');
+        $category = new Detail();
+        $data = $category->getDetail('userID', 'jobID', 'StaffID');
         $this->_renderBase->renderSidebar();
         $this->_renderBase->renderNavbar();
-        $this->load->render('Manager/notification');
+        $this->load->render('Manager/notification', $data);
         // var_dump($data);
         $this->_renderBase->renderFooter();
     }
     function indexStaff()
     {
+        $category = new Detail();
+        $data = $category->getDetail('userID', 'jobID', 'StaffID');
         $this->_renderBase->renderStaffSidebar();
         $this->_renderBase->renderStaffNavbar();
-        $this->load->render('Manager/notification');
+        $this->load->render('Staff/notification', $data);
         // var_dump($data);
         $this->_renderBase->renderStaffFooter();
     }

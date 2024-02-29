@@ -20,11 +20,22 @@ class Work extends BaseModel{
     public function updateWork($id, $data){
         return $this->updateJob($id, $data);
     }
+    public function updateDealine($jobID, $time){
+        return $this->updateTime($jobID, $time);
+    }
     function deleteW($jobID){
         return $this->delete($jobID);
     }
     function deleteW1($jobID){
         return $this->delete1($jobID);
     }
+
+    function countJob($jobDetailID){
+        return $this->count($jobDetailID);
+       }
+    function selectUser(){
+        return $this->countUser();
+       }
+
 
 }

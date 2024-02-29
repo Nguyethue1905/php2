@@ -30,16 +30,17 @@
     <!-- Template Stylesheet -->
     <link href="../../../public/css/style.css" rel="stylesheet">
     <link href="../../../public/css/child.css" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
-    <!-- <div class="container-xl position-relative bg-white d-flex p-0"> -->
     <!-- Sidebar Start -->
     <?php
 
     if (isset($_SESSION['user'])) {
         $user = $_SESSION['user'];
-        // var_dump($user);
+        // var_dump($_SESSION['user']);
     }
 
     ?>
@@ -50,7 +51,7 @@
             </a>
             <div class="d-flex align-items-center ms-4 mb-4">
                 <div class="position-relative">
-                    <img class="rounded-circle" src="../../../public/img/<?= $user['avatar'] ?>" alt="" style="width: 40px; height: 40px;">
+                    <img class="rounded-circle" src="../../../public/img/<?=$user['avatar']?? 'avatar.jfif'?>" alt="" style="width: 40px; height: 40px;">
                     <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                 </div>
                 <div class="ms-3">

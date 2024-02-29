@@ -153,7 +153,7 @@ abstract class BaseModel implements CrudInterface
     public function join($userID, $jobID, $StaffID)
     {
         $this->_query = "SELECT  jobs.nameJob as nameJob, jobs.jobID as jobID, jobs.dateStart as dateStart ,
-         jobs.dateEnd as dateEnd,users.nameUser as staff,
+         jobs.dateEnd as dateEnd,users.nameUser as staff, jobs.deadline as deadline,
          (SELECT users.nameUser FROM users WHERE users.userID = jobs.userID ) as manager ,
           jobs.file as file, jobs.note as note , jobdetails.status as status 
           FROM $this->table
@@ -165,10 +165,11 @@ abstract class BaseModel implements CrudInterface
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+   
     public function joinID($userID, $jobID, $id, $StaffID)
     {
         $this->_query = "SELECT  jobs.nameJob as nameJob, jobs.dateStart as dateStart ,
-         jobs.dateEnd as dateEnd,users.nameUser as staff,
+         jobs.dateEnd as dateEnd, users.nameUser as staff,
          (SELECT users.nameUser FROM users WHERE users.userID = jobs.userID ) as manager ,
           jobs.file as file, jobs.note as note , jobdetails.status as status , jobs.jobID as jobID
           FROM $this->table
@@ -238,9 +239,27 @@ abstract class BaseModel implements CrudInterface
         return $result->fetch(PDO::FETCH_ASSOC);
         
     }
+    function updaterestart($jobID){
+        $this->_query = "UPDATE
+         $this->table SET status = 'Start' WHERE jobID = $jobID";
+        $result   = $this->_connection->PdO()->prepare($this->_query);
+        $result->execute();
+
+        return $result->fetch(PDO::FETCH_ASSOC);
+        
+    }
     function updateProgessing($jobID){
         $this->_query = "UPDATE
          $this->table SET status = 'Success' WHERE jobID = $jobID";
+        $result   = $this->_connection->PdO()->prepare($this->_query);
+        $result->execute();
+
+        $stmt = $result->fetch(PDO::FETCH_ASSOC);
+        return $stmt;
+    }
+    function updateTime($jobID, $time){
+        $this->_query = "UPDATE
+         $this->table SET deadline = '$time' WHERE jobID = $jobID";
         $result   = $this->_connection->PdO()->prepare($this->_query);
         $result->execute();
 
@@ -255,5 +274,46 @@ abstract class BaseModel implements CrudInterface
         // var_dump($this->_query);
         $stmt = $result->fetch(PDO::FETCH_ASSOC);
         return $stmt;
+    }
+
+    function count($jobDetailID){
+        $this->_query = "SELECT COUNT(jobDetailID) as total, (SELECT COUNT(jobDetailID) FROM $this->table2 WHERE status = 'Success') as succsess, (SELECT COUNT(jobDetailID) FROM $this->table2 WHERE status = 'Progressing') as progressing, (SELECT COUNT(jobDetailID) FROM $this->table2 WHERE status = 'Start') as start FROM $this->table2 ";
+       $result   = $this->_connection->PdO()->prepare($this->_query);
+       $result->execute();
+    //    var_dump($this->_query);
+       $stmt = $result->fetch(PDO::FETCH_ASSOC);
+       return $stmt;
+    }
+
+    function countUser(){
+        $this->_query = "SELECT COUNT(jobdetailID) as count , users.nameUser as name,
+         users.position as position, users.avatar as img 
+         FROM $this->table2 
+         INNER JOIN $this->table1 
+         ON $this->table1.userID = $this->table2.StaffID 
+         WHERE $this->table1.userID = $this->table2.StaffID 
+         GROUP BY $this->table1.nameUser,$this->table1.position,img ORDER BY count DESC LIMIT 5";
+        $result   = $this->_connection->PdO()->prepare($this->_query);
+        // var_dump($this->_query); exit();
+        $result->execute();
+
+        return $result->fetchAll(PDO::FETCH_ASSOC);
+        
+    }
+
+    public function Search($userID, $jobID, $StaffID, $keyword)
+    {
+        $this->_query = "SELECT  jobs.nameJob as nameJob, jobs.jobID as jobID, jobs.dateStart as dateStart ,
+         jobs.dateEnd as dateEnd,users.nameUser as staff, jobs.deadline as deadline,
+         (SELECT users.nameUser FROM users WHERE users.userID = jobs.userID ) as manager ,
+          jobs.file as file, jobs.note as note , jobdetails.status as status 
+          FROM $this->table
+          INNER JOIN $this->table1 ON $this->table.$jobID = $this->table1.$jobID 
+          INNER JOIN $this->table2 ON $this->table.$StaffID = $this->table2.$userID WHERE $this->table2.nameUser LIKE '%$keyword%' ";
+// var_dump($this->_query);
+        $stmt   = $this->_connection->PdO()->prepare($this->_query);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Core\BaseRender;
 use App\Models\User;
+use App\Models\Work;
 use App\Controllers\LoginController;
 
 
@@ -26,13 +27,20 @@ class HomeController extends BaseController
 
     function homePage()
     {
-        // dữ liệu ở đây lấy từ repositories hoặc model
         $login = new LoginController();
         if (isset($_SESSION['user'])) {
-
+            $new = new Work();
+            $data1 = $new->countJob('jobDetailID');
+            $user = $new->selectUser();
+            $data = [
+                $user,
+                $data1
+            ];
             $this->_renderBase->renderSidebar();
             $this->_renderBase->renderNavbar();
-            $this->load->render('Manager/home');
+            $this->load->render('Manager/home', $data[1]);
+            $this->load->render('Manager/tableUser', $data[0]);
+            // var_dump($user[0]['name']);
             $this->_renderBase->renderFooter();
         } else {
             $login->login();
@@ -40,18 +48,27 @@ class HomeController extends BaseController
     }
     function homePageStaff()
     {
-        // dữ liệu ở đây lấy từ repositories hoặc model
         $login = new LoginController();
         if (isset($_SESSION['user'])) {
-
+            $new = new Work();
+            $data1 = $new->countJob('jobDetailID');
+            $user = $new->selectUser();
+            $data = [
+                $user,
+                $data1
+            ];
             $this->_renderBase->renderStaffSidebar();
             $this->_renderBase->renderStaffNavbar();
-            $this->load->render('Staff/home');
+            $this->load->render('Staff/home', $data[1]);
+            $this->load->render('Manager/tableUser', $data[0]);
+            // var_dump($user[0]['name']);
             $this->_renderBase->renderStaffFooter();
         } else {
             $login->login();
         }
     }
+
+
 
 
 }

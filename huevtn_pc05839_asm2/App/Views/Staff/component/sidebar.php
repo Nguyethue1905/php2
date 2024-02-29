@@ -30,6 +30,8 @@
     <!-- Template Stylesheet -->
     <link href="../../../public/css/style.css" rel="stylesheet">
     <link href="../../../public/css/child.css" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -56,6 +58,7 @@
 
                 <div class="ms-3">
                     <h6 class="mb-0"><?= $user['nameUser'] ?></h6>
+                  
                     <span>Staff</span>
                 </div>
             </div>

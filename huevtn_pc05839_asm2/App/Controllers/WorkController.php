@@ -37,7 +37,7 @@ class WorkController extends BaseController
     }
     function indexStaff()
     {
-        // dữ liệu ở đây lấy từ repositories hoặc model
+       
         $category = new Detail();
         $data = $category->getDetail('userID', 'jobID', 'StaffID');
 
@@ -66,14 +66,15 @@ class WorkController extends BaseController
     }
     function store()
     {
-        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        // date_default_timezone_set('Asia/Ho_Chi_Minh');
         if (isset($_POST['submit'])) {
-            // var_dump($_POST);
-
-            $old_name = $_FILES['file']['name'];
-            $file_extension = pathinfo($old_name, PATHINFO_EXTENSION);
-            $new_name = date('YmdHis') . '.' . $file_extension;
-            move_uploaded_file($_FILES['file']['tmp_name'], 'public/uploads/' . $new_name);
+            var_dump($_POST);
+            $old_name = $_FILES['file']['name'] ;
+            // if($old_name = ''){
+            // }
+            // $file_extension = pathinfo($old_name, PATHINFO_EXTENSION);
+            // $new_name = date('YmdHis') . '.' . $file_extension;
+            // move_uploaded_file($_FILES['file']['tmp_name'], 'public/uploads/' . $new_name);
 
             $nameJob = $_POST['nameJob'];
             $dateStart = $_POST['dateStart'];
@@ -96,7 +97,7 @@ class WorkController extends BaseController
                 'nameJob' => $_POST['nameJob'],
                 'dateStart' => $_POST['dateStart'],
                 'dateEnd' => $_POST['dateEnd'],
-                'file' => $new_name,
+                'file' => $old_name,
                 'note' => $_POST['note'],
                 'userID' => $id['userID']
 
@@ -132,25 +133,78 @@ class WorkController extends BaseController
     {
         if (isset($_GET['file'])) {
             $file = $_GET['file'];
-            if (file_exists($file) && is_readable($file)) {
-                header('Content-Type: application/octet-stream');
-                header("Content-Disposition: attachment; filename=\"" . basename($file) . "\"");
-                readfile($file);
+            var_dump($file); exit();
+            if($file == ''){
+                $_SESSION['eror'] = 'Không có file nào ';
+            }else{
+                if (file_exists($file) && is_readable($file)) {
+                    header('Content-Type: application/octet-stream');
+                    header("Content-Disposition: attachment; filename=\"" . basename($file) . "\"");
+                    readfile($file);
+                }
             }
+          
         }
     }
 
     function start($jobID)
     {
+        $id = $jobID;
+        $iduser = $_SESSION['user'];
         $start =  new Detail();
-        $result = $start->updateStart($jobID);
-        header('location: ' . ROOT_URL . '?url=WorkController/indexStaff');
+        $result = $start->getDetailID('userID', 'jobID',  $id,'StaffID');
+        // var_dump($iduser['nameUser']); exit();
+        if($result[0]['staff'] == $iduser['nameUser']) {
+            $results = $start->updateStart($jobID);
+            if($results){
+                echo 'KO cập nhật đc';
+                exit();
+            }else{
+                
+                header('location: ' . ROOT_URL . '?url=WorkController/indexStaff');
+                exit();
+            }
+           
+        }else{
+            $_SESSION['error'] = 'Only jobs with your name on will be updated';
+            header('location: ' . ROOT_URL . '?url=WorkController/indexStaff');
+            exit();
+        }
+        
     }
     function finish($jobID)
     {
+        $id = $jobID;
+        $iduser = $_SESSION['user'];
         $start =  new Detail();
-        $result = $start->updateProgess($jobID);
+        $result = $start->getDetailID('userID', 'jobID',  $id,'StaffID');
+        // var_dump($iduser['nameUser']); exit();
+        if($result[0]['staff'] == $iduser['nameUser']) {
+            $results = $start->updateProgess($jobID);
+            date_default_timezone_set('Asia/Ho_Chi_Minh');
+            $time = date('y-m-d H:i:s');
+            $work = new Work();
+            $name = $work->updateDealine($jobID, $time);
+            header('location: ' . ROOT_URL . '?url=WorkController/indexStaff');
+            exit();
+        }else{
+            $_SESSION['error'] = 'Only jobs with your name on them will have their status changed';
+            header('location: ' . ROOT_URL . '?url=WorkController/indexStaff');
+            exit();
+        }
+      
+    }
+    function restart($jobID)
+    {
+        $start =  new Detail();
+        $result = $start->updateSuccsess($jobID);
+        header('location: ' . ROOT_URL . '?url=WorkController/index');
+    }
+    function restartStaff($jobID)
+    {
+        $_SESSION['error'] = 'Only the administrator can change the status';
         header('location: ' . ROOT_URL . '?url=WorkController/indexStaff');
+            exit();
     }
 
     function edit($id)
@@ -187,6 +241,38 @@ class WorkController extends BaseController
         $start =  new Work();
         $result = $start->deleteW1($jobID);
         $result = $start->deleteW($jobID);
-        header('location: ' . ROOT_URL . '?url=WorkController/index');
+        header('location: ' . ROOT_URL . '?url=Wor
+        
+        kController/index');
+    }
+
+    function SearchWork(){
+        $keyword  = $_POST['key'];
+        $ser = new Detail();
+        $naa = $ser->Sear('userID', 'jobID', 'StaffID', $keyword);
+        $data = $naa;
+        if($naa  = ''){
+            echo '<div><h4>Note Data</h4></div>';
+        }else{
+            $this->_renderBase->renderSidebar();
+            $this->_renderBase->renderNavbar();
+            $this->load->render('Manager/Search', $data);
+            $this->_renderBase->renderFooter();
+        }
+    }
+    function SearchWorkStaff(){
+        $keyword  = $_POST['key'];
+        $ser = new Detail();
+        $naa = $ser->Sear('userID', 'jobID', 'StaffID', $keyword);
+        $data = $naa;
+        if($naa  = ''){
+            echo '<div><h4>Note Data</h4></div>';
+        }else{
+            $this->_renderBase->renderStaffSidebar();
+            $this->_renderBase->renderStaffNavbar();
+            $this->load->render('Staff/Search', $data);
+            $this->_renderBase->renderStaffFooter();
+        }
+        
     }
 }

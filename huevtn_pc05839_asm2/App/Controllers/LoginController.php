@@ -46,44 +46,60 @@ class LoginController extends BaseController
 
             $email = $_POST['email'];
             $password = $_POST['password'];
+            $status = $_POST['status'];
             // var_dump($email);
-            if ($this->emptyInput($email, $password)) {
-                echo 'Please fill in the information';
+            if ($this->emptyInput($email, $password, $status)) {
+                $_SESSION['error']= 'Please fill in the information';
+                header("location:" . ROOT_URL . "?url=LoginController/signup");
                 exit();
             }
             if ($this->invalidEmail($email)) {
-                echo 'Invalid email';
+                $_SESSION['error'] = 'Invalid email';
+                header("location:" . ROOT_URL . "?url=LoginController/signup");
                 exit();
             }
             if ($_POST['password1'] != $_POST['password']) {
-                echo 'Mật khẩu không khớp';
+                $_SESSION['error'] = 'Passwords are not the same';
+                header("location:" . ROOT_URL . "?url=LoginController/signup");
                 exit();
             }
             $data = [
                 'email' => $email,
                 'password' => $password,
                 'nameUser' => $_POST['nameUser'],
+                'status' => $_POST['status']
             ];
 
             // var_dump($data);
             $signup = new User();
             $users = $signup->getAllUser();
-   
+            $email = $_POST['email'];
+           
             foreach ($users as $user) {
                 //  var_dump($user['email']);
                 if ($_POST['email'] === $user['email']) {
-                    echo 'Email đã có tài khoản';
+                    $_SESSION['error'] = 'Email already has an account';
+                    header("location:" . ROOT_URL . "?url=LoginController/signup");
                     exit();
                 }
             }
             $result = $signup->createUser($data);
-            $_SESSION['user'] = $data['nameUser'];
-            $_SESSION['id'] = $data['userID'];
-            var_dump( $_SESSION['id']);
-            header("location:" . ROOT_URL . "?url=HomeController/homePage ");
+            $ad = $signup->getCheck($email);
+            $_SESSION['user'] = $ad;
+            // var_dump($ad); exit();
+            if($status == 'Staff'){
+                header("location:" . ROOT_URL . "?url=HomeController/homePageStaff ");
+            }else{
+                header("location:" . ROOT_URL . "?url=HomeController/homePage");
+            }
+           
         }
     }
-    public function emptyInput($email, $password)
+    public function emptyInput($email, $password, $status)
+    {
+        return empty($email) || empty($password) || empty($status);
+    }
+    public function emptyInput1($email, $password)
     {
         return empty($email) || empty($password);
     }
@@ -104,28 +120,32 @@ class LoginController extends BaseController
         if (isset($_POST['submit'])) {
             $email = $_POST['email'];
             $password = $_POST['password'];
-            if ($this->emptyInput($email, $password)) {
-                echo 'Please fill in the information';
+            if ($this->emptyInput1($email, $password)) {
+                $_SESSION['error']= 'Please fill in the information';
+                header("location:" . ROOT_URL . "?url=LoginController/login");
                 exit();
             }
             if ($this->invalidEmail($email)) {
-                echo 'Invalid email';
+                 $_SESSION['error'] ='Invalid email';
+                 header("location:" . ROOT_URL . "?url=LoginController/login");
                 exit();
             }
             $this->getUser($email, $password);
         }
     }
-    function getUser($email, $password)
+    function getUser($email, $password) 
     {
         $user = new User();
         // var_dump($user);
         $stmt = $user->getCheck($email);
-        var_dump($stmt);
         if ($email !== $stmt['email']) {
-            echo 'Email chưa có tài khoản';
+            $_SESSION['error'] = 'Email does not have an account';
+            header("location:" . ROOT_URL . "?url=LoginController/login");
             exit();
         } elseif ($stmt['password'] != $password) {
-            echo 'Mật khẩu không chính xác';
+            $_SESSION['error'] = 'Incorrect password';
+            header("location:" . ROOT_URL . "?url=LoginController/login");
+            exit();
         } elseif($stmt['status'] == 'Staff') {
             $_SESSION['user'] = $stmt;
             header("location:" . ROOT_URL . "?url=HomeController/homePageStaff");

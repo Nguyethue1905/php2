@@ -76,9 +76,9 @@ class ProfileContronller extends BaseController
     
             $avatar = $new_name;
             $ava = $user->uploaAvatar($userID, $avatar);
-            var_dump($ava); 
+            // var_dump($ava); 
             // exit();
-            header('Location: ' . ROOT_URL . '?url=HomeController/homePageStaff');
+            header('Location: ' . ROOT_URL . '?url=ProfileContronller/indexStaff');
         }else{
             header('Location: ' . ROOT_URL . '?url=ProfileContronller/indexStaff');
         }

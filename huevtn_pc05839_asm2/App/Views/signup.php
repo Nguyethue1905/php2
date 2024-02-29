@@ -55,6 +55,12 @@
                             </a>
                             <h3>Sign Up</h3>
                         </div>
+                        <?php 
+                              if(isset($_SESSION['error'])){
+                                echo "<p style='color:red;'>".$_SESSION['error']."</p>";
+                                unset( $_SESSION['error'] );
+                              }
+                            ?>
                         <form method="post" action="<?= ROOT_URL ?>?url=LoginController/addLogin" enctype="multipart/form-data">
                 
                             <div class="mb-3">
@@ -67,6 +73,13 @@
                             <div class="mb-3">
                                 <label for="" class="form-label">Username</label>
                                 <input type="text" class="form-control" id="" name='nameUser'>
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">Status</label>
+                                <select class="form-select" id="floatingSelect" aria-label="Floating label select example"  name="status" >
+                                    <option value="Staff">Staff</option>
+                                    <option value="Manager">Manager</option>
+                                </select>
                             </div>
 
                             <div class="mb-3">

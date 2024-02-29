@@ -3,8 +3,8 @@
     <div class="bg-light text-center rounded p-4">
         <div class="d-flex align-items-center justify-content-between mb-4">
             <h6 class="mb-0">List Work</h6>
-            <a href="../Manager/index.php?act=unfinished">Show Unfinished</a>
-            <a href="../Manager/index.php?act=complete">Show Completed</a>
+            <!-- <a href="../Manager/index.php?act=unfinished">Show Unfinished</a>
+            <a href="../Manager/index.php?act=complete">Show Completed</a> -->
         </div>
         <div class="table-responsive">
             <form action="<?= ROOT_URL ?>?url=WorkController/start" method="get">
@@ -30,19 +30,20 @@
                             <tr>
                                 <td style="width:5%;"><?= $count ?></td>
                                 <td style="width:15%;"><?= $value['nameJob'] ?></td>
-                                <td style="width:15%;"><?= $value['staff'] ?></td>
+                                <td style="width:15%;"><b><?= $value['staff'] ?></b></td>
                                 <td style="width:15%;"><?= $value['dateStart'] ?></td>
                                 <td style="width:15%;"><?= $value['dateEnd'] ?></td>
                                 <td style="width:10%;">
                                     <?php
                                     $jobID = $value['jobID'];
                                     if ($value['status'] == 'Start') {
-                                        echo "<a type='button' href=" . ROOT_URL . "?url=WorkController/start/" . $jobID . " class='btn btn-outline-primary m-2'>Start</a>";
+                                        echo "<a type='button' class='btn btn-outline-primary m-2'>Start</a>";
                                     } elseif ($value['status'] == 'Progressing') {
-                                        echo "<a type='button'  href=" . ROOT_URL . "?url=WorkController/finish/" . $jobID . " class='btn btn-outline-warning m-2'>Processing</a>";
+                                        echo "<a type='button' class='btn btn-outline-warning m-2'>Processing</a>";
                                     } elseif ($value['status'] == 'Success') {
-                                        echo '<button type="button" class="btn btn-success m-2">Success</button>';
+                                        echo "<a type='button'  href=" . ROOT_URL . "?url=WorkController/restart/" . $jobID . " class='btn btn-success m-2'>Success</a>";
                                     }
+
                                     ?>
                                 </td>
                                 <td style="width:10%;">
@@ -58,39 +59,54 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <?php
-                                                $jobID = $value['jobID'];
-
-                                                $datetime1 = new DateTime($value['dateStart']);
-                                                $datetime2 = new DateTime($value['dateEnd']);
-                                                $interval = $datetime1->diff($datetime2);
-                                                $time =  $interval->format('%d ngày, %h giờ, %i phút và %s giây');
-
-                                                $now = new DateTime();
-                                                $interval = $now->diff($datetime2);
-                                                $count = $interval->format('%d ngày, %h giờ, %i phút và %s giây');
+                                                if (isset($_SESSION['error'])) {
+                                                    echo "<p style='color:red;'>" . $_SESSION['error'] . "</p>";
+                                                    unset($_SESSION['error']);
+                                                }
+                                                ?>
+                                                <?php
+                                                 date_default_timezone_set('Asia/Ho_Chi_Minh');
+                                                 $jobID = $value['jobID'];
+ 
+                                                 $datetime1 = new DateTime($value['dateStart']);
+                                                 $datetime2 = new DateTime($value['dateEnd']);
+                                                 // var_dump($datetime2);
+                                                 $interval = $datetime1->diff($datetime2);
+                                            
+                                                 $now = new DateTime();
+                                                 $interval = $now->diff($datetime2);
                                                 ?>
 
                                                 <div class="modal-body">
 
-                                                    <b>Title: <?= $value['nameJob'] ?></b> <br>
-                                                    Status: <?= $value['status'] ?><br>
-                                                    Time: <?= $time ?><br>
-                                                    Deadline: <?= $count ?><br>
-                                                    TaskManger: <?= $value['manager'] ?><br>
-                                                    Staff: <?= $value['staff'] ?><br>
-                                                    File: <?= $value['file'] ?> <form action="<?= ROOT_URL ?>?url=WorkController/down" method="get"><a href="uploads/<?= $value['file'] ?>" download class="btn btn-primary p-1">Download</a></form> <br>
-                                                    Note: <?= $value['note'] ?><br>
+                                                <h5>Title: <?= $value['nameJob'] ?></h5>
+                                                    <p>Status: <?= $value['status'] ?></p>
+                                                    <p>Deadline:<b> <?= $value['dateEnd'] ?></b> </p>
+                                                    <p>Time: <b> <?php if ($datetime2 < $now) {
+                                                                    echo '<h4 style="color:red;">Time out</h4>';
+                                                                } else {
+                                                                    $count = $interval->format('%d day, %h hours, %i minute , %s s');
+                                                                    echo $count;
+                                                                } ?>
+                                                                </b></p> <br>
+                                                     <p>Success: <?= $value['deadline'] ?></p>
+                                                    <p>TaskManger: <?= $value['manager'] ?></p>
+                                                    <p>Staff: <?= $value['staff'] ?></p>
+                                                    <p>File: <?= $value['file'] ?? 'not file' ?>
+                                                    <form action="<?= ROOT_URL ?>?url=WorkController/down" method="get"><a href="uploads/<?= $value['file'] ?>" download class="btn btn-primary p-1">Download</a></form>
+                                                    </p>
+                                                    <p>Note: <?= $value['note'] ?></p>
                                                     <!-- etc. -->
                                                 </div>
-                                                    <div class="modal-footer">
-                                                        <a href="<?= ROOT_URL ?>?url=WorkController/edit/<?=$value['jobID']?>" type="submit" class="btn btn-primary" name="edit">Edit</a>
-                                                    </div>
-                                               
+                                                <div class="modal-footer">
+                                                    <a href="<?= ROOT_URL ?>?url=WorkController/edit/<?= $value['jobID'] ?>" type="submit" class="btn btn-primary" name="edit">Edit</a>
+                                                </div>
+
                                             </div>
                                         </div>
-                                    </div> 
+                                    </div>
                                 </td>
-                                <td style="width:10%;"><a href=" <?=ROOT_URL?>?url=WorkController/deleteWork/<?=$jobID?>" type="button" class="btn btn-danger m-2">Delete</a></td>
+                                <td style="width:10%;"><a href=" <?= ROOT_URL ?>?url=WorkController/deleteWork/<?= $jobID ?>" type="button" class="btn btn-danger m-2">Delete</a></td>
                             </tr>
                         <?php
                         endforeach;

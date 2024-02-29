@@ -51,9 +51,9 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <!-- Add the user details you want to display here -->
-                    avtar: 
-                    <img src="../../../public/img/<?=$value['avatar']?>" alt=""><br>
+                 
+                     
+                    <img src="../../../public/img/<?=$value['avatar']?? 'avatar.jfif'?>" alt=""><br>
                    <b>Name: <?=$value['nameUser']?></b> <br>
                     Status: <?=$value['status']?><br>
                     Phone: <?=$value['phone']?><br>

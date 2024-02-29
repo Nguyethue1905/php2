@@ -16,33 +16,16 @@ if(isset($_SESSION['user'])){
         <a href="#" class="sidebar-toggler flex-shrink-0">
             <i class="fa fa-bars"></i>
         </a>
-        <form class="d-none d-md-flex ms-4">
-            <input class="form-control border-0" type="search" placeholder="Search">
+        <form class="d-none d-md-flex m-2 p-0" action="<?=ROOT_URL?>?url=WorkController/SearchWorkStaff" style="height:40px;" method="post">
+            <input class="form-control border-0 " type="search" placeholder="Search" name="key">
+            <!-- <button type="submit" name="submit" class='btn btn-outline-primary '>O</button> -->
         </form>
         <div class="navbar-nav align-items-center ms-auto">
             <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                <a href="<?= ROOT_URL ?>?url=HomeController/homePageStaff" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                     <i class="fa fa-bell me-lg-2"></i>
                     <span class="d-none d-lg-inline-flex">Notificatin</span>
                 </a>
-                <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                    <a href="" class="dropdown-item">
-                        <h6 class="fw-normal mb-0">Profile updated</h6>
-                        <small>15 minutes ago</small>
-                    </a>
-                    <hr class="dropdown-divider">
-                    <a href="#" class="dropdown-item">
-                        <h6 class="fw-normal mb-0">New user added</h6>
-                        <small>15 minutes ago</small>
-                    </a>
-                    <hr class="dropdown-divider">
-                    <a href="#" class="dropdown-item">
-                        <h6 class="fw-normal mb-0">Password changed</h6>
-                        <small>15 minutes ago</small>
-                    </a>
-                    <hr class="dropdown-divider">
-                    <a href="#" class="dropdown-item text-center">See all notifications</a>
-                </div>
             </div>
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">

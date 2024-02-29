@@ -24,4 +24,11 @@ class Detail extends BaseModel{
     public function updateProgess($jobID){
         return $this->updateProgessing($jobID);
     }
+    public function updateSuccsess($jobID){
+        return $this->updaterestart($jobID);
+    }
+    function Sear($userID, $jobID, $StaffID, $keyword){
+        return $this->Search($userID, $jobID, $StaffID, $keyword);
+       }
+   
 }

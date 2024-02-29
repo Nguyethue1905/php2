@@ -36,7 +36,8 @@ class ForgotController extends BaseController
                    $this->form();
                    exit();
                 }else{
-                    echo 'Email chưa có tài khoản';
+                    $_SESSION['error'] ='Email does not have an account';
+                    header("location:" . ROOT_URL . "?url=ForgotController/forgot");
                     exit();
                 }
             }
@@ -71,8 +72,9 @@ class ForgotController extends BaseController
                 // var_dump($_SESSION['code']);
             header("location:" . ROOT_URL . "?url=ForgotController/newPass");
             }else{
-                echo 'recode';
+                $_SESSION['error'] = 'Code is incorrect';
                 header("location:" . ROOT_URL . "?url=ForgotController/otp");
+                exit();
             }
         }
     }
@@ -80,12 +82,13 @@ class ForgotController extends BaseController
     function New(){
         if(isset($_POST["submit"])){
             if ($_POST['password1'] != $_POST['password']) {
-                echo 'Mật khẩu không khớp';
+                $_SESSION['error'] = 'Passwords are not the same';
+                header("location:" . ROOT_URL . "?url=ForgotController/newPass");
                 exit();
             }
             
             $email = $_SESSION['email'];
-            var_dump($email);
+            // var_dump($email);
             $data = [
                 'password' => $_POST['password']
             ];

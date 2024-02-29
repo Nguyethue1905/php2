@@ -44,8 +44,14 @@
                             <a href="index.html" class="">
                                 <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>DASHMIN</h3>
                             </a>
-                            <h3>Sign In</h3>
+                            <h3>ResetPass</h3>
                         </div>
+                        <?php 
+                              if(isset($_SESSION['error'])){
+                                echo "<p style='color:red;'>".$_SESSION['error']."</p>";
+                                unset( $_SESSION['error'] );
+                              }
+                            ?>
                         <form method="post" action="<?= ROOT_URL ?>?url=ForgotController/New">
                         <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Password</label>
